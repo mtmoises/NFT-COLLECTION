@@ -1,0 +1,11 @@
+{
+  "name": "La Real Para NFT 1",
+  "description": "NFT collection by Blockchain Accelerator -- Moises Martinez",
+  "image": "ipfs://bafybeiei7zwwv7newyg3m453lzwhfwaztwkk4ioozlbmovjlmwezszqk4a1",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "1"
+    }
+  ]
+}
