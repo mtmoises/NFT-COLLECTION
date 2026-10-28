@@ -1,66 +1,51 @@
-## Foundry
+# 🖼️ BA NFT Collection Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A gas-optimized, secure **ERC-721** non-fungible token collection smart contract built with **Solidity 0.8.20** and OpenZeppelin contracts. 
 
-Foundry consists of:
+This contract features a dynamic token minting mechanism with a strict supply cap, automatic URI concatenation for metadata management, and custom event logging.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+---
 
-## Documentation
+## 📌 Architecture & Features
 
-https://book.getfoundry.sh/
+- **ERC-721 Standard Compliance:** Inherits from OpenZeppelin's robust ERC-721 implementation for safe and secure token ownership management.
+- **Capped Supply Control:** Enforces a maximum token limit (`totalSupply`) defined upon deployment, ensuring strict digital scarcity (`sold_out` checks).
+- **Dynamic Metadata & BaseURI:** Overrides `_baseURI()` and `tokenURI()` to seamlessly append `.json` extensions to individual token IDs.
+- **Transparent Event Emission:** Emits a custom `MintNFTCollection` event on every successful mint for off-chain indexing and frontend tracking.
+- **Secure Minting Logic:** Uses `_safeMint` to ensure recipient addresses are fully capable of handling ERC-721 tokens, preventing accidental loss.
 
-## Usage
+---
 
-### Build
+## 🛠 Tech Stack & Tools
 
-```shell
-$ forge build
-```
+- **Language:** Solidity `^0.8.20`
+- **Framework:** Foundry / Hardhat
+- **Libraries:** OpenZeppelin Contracts (`ERC721`, `Strings`)
+- **Target Network:** EVM Compatible Chains
 
-### Test
+---
 
-```shell
-$ forge test
-```
+## 🚀 Smart Contract Overview
 
-### Format
+### Core Functions
 
-```shell
-$ forge fmt
-```
+1. **`constructor(string memory name_, string memory symbol_, uint256 totalSupply_, string memory baseURI_)`**
+   - Initializes the NFT collection with a custom name, symbol, max supply cap, and base metadata URI.
 
-### Gas Snapshots
+2. **`mint()`**
+   - External function allowing any user to mint the next available token ID.
+   - Enforces the `totalSupply` limit via a `require` check.
+   - Triggers `_safeMint` to `msg.sender` and increments the tracker.
 
-```shell
-$ forge snapshot
-```
+3. **`tokenURI(uint256 tokenId)`**
+   - Public view function that checks ownership via `_requireOwned` and returns the concatenated URL string (`baseURI + tokenId + .json`).
 
-### Anvil
+---
 
-```shell
-$ anvil
-```
+## ⚡ Quickstart & Testing (Foundry)
 
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### 1. Clone Repository & Install Dependencies
+```bash
+git clone [https://github.com/mtmoises/ba-nft-collection.git](https://github.com/mtmoises/ba-nft-collection.git)
+cd ba-nft-collection
+forge install
